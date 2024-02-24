@@ -3,7 +3,9 @@ import "socket.io";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-
+import { errorHandler, routeNotFound } from "./middleware/errorHandler.js";
+import userRoutes from "./routes/userRoutes.js";
+import connectToDB from "./config/db.js";
 dotenv.config();
 
 const port = process.env.PORT || 4000;
@@ -20,31 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(routeNotFound);
+app.use(errorHandler);
+app.use("/api/auth", userRoutes);
+
 app.listen(port, () => console.log("SERVER is running on port", port));
 [...Array(10)].forEach(() => console.log());
-
-// const io = new SocketIOServer(server, {
-//   cors: {
-//     origin: "http://localhost:5173",
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   },
-// });
-
-// // Socket.IO connection handling
-// io.on("connection", (socket) => {
-//   console.log("A user connected");
-
-//   // Handle messages from clients
-//   socket.on("message", (message) => {
-//     console.log(`Received message: ${message}`);
-
-//     // Broadcast the message to all clients
-//     io.emit("message", message);
-//   });
-
-//   // Handle disconnection
-//   socket.on("disconnect", () => {
-//     console.log("A user disconnected");
-//   });
-// });
+connectToDB();
