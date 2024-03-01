@@ -84,4 +84,13 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { loginUser, logoutUser, registerUser };
+const getAllUsers = asyncHandler(async (req, res) => {
+  // Assuming req.user contains information about the currently logged-in user
+  const loggedInUserId = req.user._id;
+
+  const users = await User.find({ _id: { $ne: loggedInUserId } }).select(["-password"]);
+
+  res.status(200).json(users);
+});
+
+export { loginUser, logoutUser, registerUser, getAllUsers };
