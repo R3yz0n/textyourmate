@@ -12,23 +12,23 @@ const App = () => {
   //   setDarkTheme(!darkTheme);
   // };
   const { userInfo } = useSelector((state: any) => state.auth);
-  useEffect(() => {
-    if (userInfo) {
-      const socket = io(BASE_URL, {
-        query: {
-          userId: userInfo._id,
-        },
-      });
-      setSocket(socket);
-      socket.on("getOnlineUsers", (users: any) => {
-        // console.log(users);
-      });
-      return () => {
-        socket.close();
-        setSocket(null);
-      };
-    }
-  }, [userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     const socket = io(BASE_URL, {
+  //       query: {
+  //         userId: userInfo._id,
+  //       },
+  //     });
+  //     setSocket(socket);
+  //     socket.on("getOnlineUsers", (users: any) => {
+  //       console.log(users);
+  //     });
+  //     return () => {
+  //       socket.close();
+  //       setSocket(null);
+  //     };
+  //   }
+  // }, [userInfo]);
 
   useEffect(() => {
     // Replace 'http://localhost:5000' with the URL of your Socket.io server
