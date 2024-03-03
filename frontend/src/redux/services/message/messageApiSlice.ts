@@ -1,4 +1,4 @@
-import { BASE_URL, MESSAGE_URL, USERS_URL } from "../../../constants";
+import { MESSAGE_URL } from "../../../constants";
 import apiSlice from "../apiSlice";
 
 export const messageApiSlice = apiSlice
@@ -6,7 +6,7 @@ export const messageApiSlice = apiSlice
   .injectEndpoints({
     endpoints: (builder) => ({
       getUserConversation: builder.query({
-        query: (userId) => `${MESSAGE_URL}/${userId}`,
+        query: (receiverId) => `${MESSAGE_URL}/${receiverId}`,
         //
         providesTags: ["Message"],
       }),
@@ -21,17 +21,24 @@ export const messageApiSlice = apiSlice
         // invalidatesTags: ["Message"],
 
         async onQueryStarted(task, { dispatch, queryFulfilled }) {
+          console.log(task);
+          const { data } = await queryFulfilled;
+          console.log(data);
           const patchResult = dispatch(
-            messageApiSlice.util.updateQueryData("getUserConversation", undefined, (draft) => {
-              // Consider removing or providing a more informative log message
-              console.log("Updated user conversation:", draft);
-            })
+            messageApiSlice.util.updateQueryData(
+              "getUserConversation",
+              task.receiverId,
+              (draft) => {
+                draft?.push(data);
+              }
+            )
           );
 
           try {
             await queryFulfilled;
           } catch {
             patchResult.undo();
+            // messageApiSlice.util.invalidateTags("Message");
           }
         },
       }),
