@@ -4,7 +4,6 @@ import users from "../data/users.js";
 import User from "../models/userModel.js";
 import connectToDB from "../config/db.js";
 import Conversation from "../models/conversationModel.js";
-import Message from "../models/messageModel.js";
 
 dotenv.config(process.env.MONGO_URI);
 connectToDB();
@@ -13,7 +12,7 @@ const importData = async () => {
     await User.deleteMany();
     await User.insertMany(users);
     await Conversation.deleteMany();
-    await Message.deleteMany();
+    // await Messages;
     // console.log(createdUsers);
 
     console.log("Data Imported!".green.inverse);
