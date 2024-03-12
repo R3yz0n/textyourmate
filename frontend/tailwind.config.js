@@ -5,5 +5,8 @@ module.exports = {
   theme: {
     extend: {},
   },
+  daisyui: {
+    themes: ["business", "forest"],
+  },
   plugins: ["prettier-plugin-tailwind", require("daisyui")],
 };
