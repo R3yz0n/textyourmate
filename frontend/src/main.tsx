@@ -11,16 +11,19 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from "./screens/Login.tsx";
-import Home from "./screens/Home.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import Friends from "./components/friends/Friends.jsx";
+import Conversations from "./components/conversation/Conversations.tsx";
+import MessageContainer from "./components/messages/MessageContainer.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="" element={<App />}>
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/register" element={<Signup />} /> */}
       <Route path="/" element={<ProtectedRoute />}>
-        <Route index={true} path="/" element={<Home />} />
+        <Route path="/" index={true} element={<Conversations />} />
+        <Route path="/conversation/:id" element={<MessageContainer />} />
+        <Route path="/friends" element={<Friends />} />
       </Route>
     </Route>
   )
