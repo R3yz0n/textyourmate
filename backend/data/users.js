@@ -13,6 +13,300 @@ const users = [
     password: bcrypt.hashSync("123456", 10),
     isAdmin: false,
   },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
+
+  {
+    name: "Sagar",
+    email: `sagar${Date.now()}@test.com`, // `${Date.now()}@test.com
+    password: bcrypt.hashSync("123456", 10),
+    isAdmin: false,
+  },
   {
     name: "Jane",
     email: "jane@test.com",
