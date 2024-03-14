@@ -20,6 +20,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
       <Route path="/login" element={<Login />} />
+      {/* <Route path="/conversation/:id" element={<></>} /> */}
       <Route path="/" element={<ProtectedRoute />}>
         <Route path="/" index={true} element={<Conversations />} />
         <Route path="/conversation/:id" element={<MessageContainer />} />
