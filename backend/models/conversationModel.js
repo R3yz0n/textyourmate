@@ -16,7 +16,7 @@ const conversationSchema = new mongoose.Schema(
       },
     ],
     lastMessage: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Message",
       default: null,
     },
