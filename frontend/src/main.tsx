@@ -11,20 +11,20 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from "./screens/Login.tsx";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Friends from "./components/friends/Friends.jsx";
 import Conversations from "./components/conversation/Conversations.tsx";
-import MessageContainer from "./components/messages/MessageContainer.tsx";
+import Home from "./components/Home.jsx";
+import ChatRoom from "./screens/ChatRoom.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/conversation/:id" element={<></>} /> */}
-      <Route path="/" element={<ProtectedRoute />}>
+      <Route path="" element={<Home />}>
         <Route path="/" index={true} element={<Conversations />} />
-        <Route path="/conversation/:id" element={<MessageContainer />} />
+        <Route path="/conversation/:id" element={<ChatRoom />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/*" element={<>Page not found</>} />
       </Route>
     </Route>
   )
