@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetAllMessagesQuery } from "../redux/services/message/messageApiSlice";
-import MessageInput from "../components/messages/MessageInput";
-import Message from "../components/messages/Message";
+import MessageInput from "../components/message/MessageInput";
+import Message from "../components/message/Message";
 import { useLayoutEffect, useRef } from "react";
 
 const ChatRoom = () => {
@@ -22,20 +22,22 @@ const ChatRoom = () => {
   }, [messages]);
   return (
     <main className="w-full flex flex-col h-full">
-      <>
-        <div className="bg-slate-500 px-4 py-2 mb-2">
-          <span className="label-text ">To:{receiver?.name}</span>
-        </div>
-        <div className="px-4 flex flex-col overflow-auto relative  h-[80%]">
-          {messages?.length > 0 &&
-            messages?.map((message: any, index: number) => (
-              <div key={message._id} ref={index === messages.length - 1 ? lastMessageRef : null}>
-                <Message message={message} />
-              </div>
-            ))}
-        </div>
-        <MessageInput receiverId={receiver?._id} conversationId={id} />
-      </>
+      <div className="bg-slate-500 px-4 py-2 mb-2">
+        <Link to="/" className="btn  w-12 py-0">
+          Back
+        </Link>
+
+        <span className="label-text ">{receiver?.name}</span>
+      </div>
+      <div className="px-4 flex flex-col overflow-auto relative  h-[80%]">
+        {messages?.length > 0 &&
+          messages?.map((message: any, index: number) => (
+            <div key={message._id} ref={index === messages.length - 1 ? lastMessageRef : null}>
+              <Message message={message} />
+            </div>
+          ))}
+      </div>
+      <MessageInput receiverId={receiver?._id} conversationId={id} />
     </main>
   );
 };
