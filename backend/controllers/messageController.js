@@ -3,7 +3,6 @@ import Conversation from "../models/conversationModel.js";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 import Message from "../models/messageModel.js";
-import { send } from "process";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
 const sendMessage = asyncHandler(async (req, res) => {
