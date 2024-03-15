@@ -34,21 +34,27 @@ const sendMessage = asyncHandler(async (req, res) => {
 });
 
 const getMessages = asyncHandler(async (req, res) => {
-  const { id: userToChat } = req.params;
-  const senderId = req.user._id;
+  let conversationId = req.params.id;
+  let a = await Conversation.findById(conversationId)
+    .select(["messages", "participants"])
+    .populate(["participants"]);
+  return res.json(a);
+  const conversation = await Conversation.findById(conversationId).populate({
+    path: "participants",
+    select: "name email", // Select the fields you want to populate
+  });
 
-  // let conversaton = await Conversation.find().populate("messages");
-  // console.log(conversaton);
-
-  let conversaton = await Conversation.findOne({
-    participants: { $all: [senderId, userToChat] },
-  }).populate("messages");
-
-  if (!conversaton) {
-    return res.status(200).json([]);
+  if (!conversation) {
+    return res.status(404).json({ message: "Conversation not found" });
   }
 
-  res.status(200).json(conversaton.messages);
+  // Retrieve all messages associated with the conversation
+  const messages = await Message.find({ conversationId: req.params.id }).populate(
+    "sender",
+    "name email"
+  ); // Assuming each message has a sender field referencing the User model
+
+  res.status(200).json({ conversation, messages });
 });
 
 export { sendMessage, getMessages };
