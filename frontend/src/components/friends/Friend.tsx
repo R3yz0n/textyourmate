@@ -1,14 +1,17 @@
 import axios from "axios";
 import { BASE_URL, CONVERSATION_URL } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 const Friend = ({ user }) => {
+  const navigate = useNavigate();
   const getConversation = async () => {
     try {
       console.log("here");
       const res = await axios.get(`${BASE_URL}/api/conversation/${user._id}`, {
         withCredentials: true,
       });
-      console.log(res);
+      console.log(res.data);
+      navigate(`/conversation/${res.data._id}`);
     } catch (err) {
       console.log(err);
       // console.log(user?._id);

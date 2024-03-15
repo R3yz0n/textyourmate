@@ -6,8 +6,8 @@ export const messageApiSlice = apiSlice
   .enhanceEndpoints({ addTagTypes: ["Message"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getUserConversation: builder.query({
-        query: (receiverId) => `${MESSAGE_URL}/${receiverId}`,
+      getAllMessages: builder.query({
+        query: (conversationId) => `${MESSAGE_URL}/${conversationId}`,
         //
         providesTags: ["Message"],
         async onCacheEntryAdded(
@@ -41,8 +41,8 @@ export const messageApiSlice = apiSlice
       }),
 
       sendMessage: builder.mutation({
-        query: ({ receiverId, message }) => ({
-          url: `${MESSAGE_URL}/${receiverId}`,
+        query: ({ conversationId, message }) => ({
+          url: `${MESSAGE_URL}/${conversationId}`,
           method: "POST",
           body: { ...message },
         }),
@@ -54,13 +54,9 @@ export const messageApiSlice = apiSlice
           const { data } = await queryFulfilled;
           console.log(data);
           const patchResult = dispatch(
-            messageApiSlice.util.updateQueryData(
-              "getUserConversation",
-              task.receiverId,
-              (draft) => {
-                draft?.push(data);
-              }
-            )
+            messageApiSlice.util.updateQueryData("getAllMessages", task.conversationId, (draft) => {
+              draft?.push(data);
+            })
           );
 
           try {
@@ -74,4 +70,4 @@ export const messageApiSlice = apiSlice
     }),
   });
 
-export const { useGetUserConversationQuery, useSendMessageMutation } = messageApiSlice;
+export const { useGetAllMessagesQuery, useSendMessageMutation } = messageApiSlice;

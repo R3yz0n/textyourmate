@@ -6,8 +6,8 @@ export const conversationApiSlice = apiSlice
   .enhanceEndpoints({ addTagTypes: ["Conversation"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getUserConversation: builder.query({
-        query: (receiverId) => `${CONVERSATION_URL}`,
+      getConversationById: builder.query({
+        query: (conversationId) => `${CONVERSATION_URL}/${conversationId}`,
         //
         providesTags: ["Conversation"],
         async onCacheEntryAdded(
@@ -39,7 +39,12 @@ export const conversationApiSlice = apiSlice
           socket.close();
         },
       }),
+      getAllConversation: builder.query({
+        query: (conversationId) => `${CONVERSATION_URL}`,
+
+        providesTags: ["Conversation"],
+      }),
     }),
   });
 
-export const { useGetUserConversationQuery } = conversationApiSlice;
+export const { useGetConversationByIdQuery, useGetAllConversationQuery } = conversationApiSlice;

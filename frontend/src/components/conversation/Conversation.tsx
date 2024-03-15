@@ -3,18 +3,19 @@ import { selectConversation } from "../../redux/services/user/userSlice";
 import { Link } from "react-router-dom";
 
 interface ConversationProps {
-  name: string;
+  conversation: {};
   id: number;
 }
 
-const Conversation: React.FC<ConversationProps> = ({ name, id }) => {
-  const dispatch = useDispatch();
+const Conversation: React.FC<ConversationProps> = ({ conversation, id }) => {
   const { selectedConversation } = useSelector((state: any) => state.user);
+
+  const dispatch = useDispatch();
 
   const isSelected = selectedConversation === id;
 
   return (
-    <Link to={`/conversation/${selectedConversation}`}>
+    <Link to={`/conversation/${conversation?._id}`}>
       <div
         className={`flex gap-2  items-center rounded-md p-2 py-1 my-1 bg-[rgb(38,38,38)] cursor-pointer ${
           isSelected ? "bg-sky-500" : "hover:bg-sky-500"
@@ -33,7 +34,7 @@ const Conversation: React.FC<ConversationProps> = ({ name, id }) => {
 
         <div className="flex flex-col flex-1 my-2">
           <div>
-            <p>{name}</p>
+            <p>{conversation && conversation?.participants[1]?.name}</p>
             <span className="text-xs text-gray-400">Your last message</span>
           </div>
         </div>
