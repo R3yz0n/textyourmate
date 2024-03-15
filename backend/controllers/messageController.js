@@ -7,25 +7,28 @@ import { send } from "process";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
 const sendMessage = asyncHandler(async (req, res) => {
-  const { message } = req.body;
+  const { message } = req.body.message;
   const senderId = req.user._id;
-  const { id: receiverId } = req.params;
-  let conversaton = await Conversation.findOne({ participants: { $all: [senderId, receiverId] } });
+  const receiverId = req.body.receiverId;
+  const conversationId = req.params.id;
+  let conversaton = await Conversation.findById(conversationId);
+
   if (!conversaton) {
-    conversaton = await Conversation.create({ participants: [senderId, receiverId] });
-  } else {
-    conversaton = await Conversation.findOne({ participants: { $all: [senderId, receiverId] } });
+    // conversaton = await Conversation.create({ participants: [senderId, receiverId] });
+    throw new Error("Conversation not found");
   }
 
+  console.log(conversaton.lastMessage);
   const newMessage = new Message({ senderId, receiverId, message });
   if (newMessage) {
     conversaton.messages.push(newMessage._id);
+    conversaton.lastMessage = message;
   }
 
   await Promise.all([newMessage.save(), conversaton.save()]);
-  // socket Io functionality will go there
   const receiverSocketId = getReceiverSocketId(receiverId);
   if (receiverId) {
+    console.log("socket id");
     console.log(receiverSocketId);
 
     io.to(receiverSocketId).emit("newMessage", newMessage);
@@ -36,25 +39,27 @@ const sendMessage = asyncHandler(async (req, res) => {
 const getMessages = asyncHandler(async (req, res) => {
   let conversationId = req.params.id;
   let a = await Conversation.findById(conversationId)
-    .select(["messages", "participants"])
-    .populate(["participants"]);
+    .select(["_id", "lastMessage"])
+    .populate(["messages", "participants"]);
+  // .populate("messages", "participants", "name email");
   return res.json(a);
-  const conversation = await Conversation.findById(conversationId).populate({
-    path: "participants",
-    select: "name email", // Select the fields you want to populate
-  });
 
-  if (!conversation) {
-    return res.status(404).json({ message: "Conversation not found" });
-  }
+  // const conversation = await Conversation.findById(conversationId).populate({
+  //   path: "participants",
+  //   select: "name email", // Select the fields you want to populate
+  // });
 
-  // Retrieve all messages associated with the conversation
-  const messages = await Message.find({ conversationId: req.params.id }).populate(
-    "sender",
-    "name email"
-  ); // Assuming each message has a sender field referencing the User model
+  // if (!conversation) {
+  //   return res.status(404).json({ message: "Conversation not found" });
+  // }
 
-  res.status(200).json({ conversation, messages });
+  // // Retrieve all messages associated with the conversation
+  // const messages = await Message.find({ conversationId: req.params.id }).populate(
+  //   "sender",
+  //   "name email"
+  // ); // Assuming each message has a sender field referencing the User model
+
+  // res.status(200).json({ conversation, messages });
 });
 
 export { sendMessage, getMessages };
