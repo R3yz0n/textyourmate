@@ -24,9 +24,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-app.use("/api", () => {
-  console.log("API is online.");
+app.use("/api", (req, res) => {
+  res.send("Welcome to the chat app");
 });
 app.use("/api/users", userRoutes);
 app.use("/api/message", messageRoutes);
