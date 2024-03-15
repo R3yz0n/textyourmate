@@ -9,6 +9,7 @@ import {
   Route,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import Login from "./screens/Login.tsx";
 import Friends from "./components/friends/Friends.jsx";
@@ -24,7 +25,7 @@ const router = createBrowserRouter(
         <Route path="/" index={true} element={<Conversations />} />
         <Route path="/conversation/:id" element={<ChatRoom />} />
         <Route path="/friends" element={<Friends />} />
-        <Route path="/*" element={<>Page not found</>} />
+        <Route path="/*" element={<Navigate to={"/"} replace />} />
       </Route>
     </Route>
   )
