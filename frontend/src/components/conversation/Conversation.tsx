@@ -35,7 +35,7 @@ const Conversation: React.FC<ConversationProps> = ({ conversation, id }) => {
         <div className="flex flex-col flex-1 my-2">
           <div>
             <p>{conversation && conversation?.participants[1]?.name}</p>
-            <span className="text-xs text-gray-400">Your last message</span>
+            <span className="text-xs text-gray-400">{conversation?.lastMessage}</span>
           </div>
         </div>
       </div>
