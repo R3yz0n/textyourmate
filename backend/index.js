@@ -24,12 +24,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api", (req, res) => {
-  res.send("Welcome to the chat app");
-});
+
 app.use("/api/users", userRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api/conversation", conversationRoutes);
+app.use("/api", (req, res) => {
+  res.json({ message: "API is working" });
+});
 app.use(routeNotFound);
 app.use(errorHandler);
 
