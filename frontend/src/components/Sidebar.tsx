@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import Conversations from "./conversation/Conversations";
-import Friends from "./friends/Friends";
 import { Link, NavLink } from "react-router-dom";
-import useCustomDispatch from "../hooks/dispatch";
 import { logout } from "../redux/services/auth/authSlice";
 import { FaUserCircle } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";

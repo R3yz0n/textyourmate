@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Friend from "../components/friend/Friend";
 import { useGetAllUsersQuery } from "../redux/services/user/userApiSlice";
 
