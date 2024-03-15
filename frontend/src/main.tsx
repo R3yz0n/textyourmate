@@ -12,16 +12,16 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./screens/Login.tsx";
-import Friends from "./components/friends/Friends.jsx";
-import Conversations from "./components/conversation/Conversations.tsx";
-import Home from "./components/Home.jsx";
 import ChatRoom from "./screens/ChatRoom.tsx";
+import Friends from "./screens/Friends.tsx";
+import Conversations from "./screens/Conversations.tsx";
+import Layout from "./components/Layout.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<App />}>
       <Route path="/login" element={<Login />} />
-      <Route path="" element={<Home />}>
+      <Route path="" element={<Layout />}>
         <Route path="/" index={true} element={<Conversations />} />
         <Route path="/conversation/:id" element={<ChatRoom />} />
         <Route path="/friends" element={<Friends />} />
