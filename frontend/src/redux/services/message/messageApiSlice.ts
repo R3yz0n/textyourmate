@@ -21,7 +21,6 @@ export const messageApiSlice = apiSlice
               userId: auth?.userInfo?._id,
             },
           });
-          console.log("here");
           socket.on("newMessage", (message) => {
             console.log(message);
             updateCachedData((draft) => {
@@ -41,10 +40,10 @@ export const messageApiSlice = apiSlice
       }),
 
       sendMessage: builder.mutation({
-        query: ({ conversationId, message }) => ({
+        query: ({ conversationId, message, receiverId }) => ({
           url: `${MESSAGE_URL}/${conversationId}`,
           method: "POST",
-          body: { ...message },
+          body: { message, receiverId },
         }),
 
         // invalidatesTags: ["Message"],
@@ -55,15 +54,15 @@ export const messageApiSlice = apiSlice
           console.log(data);
           const patchResult = dispatch(
             messageApiSlice.util.updateQueryData("getAllMessages", task.conversationId, (draft) => {
-              draft?.push(data);
+              console.log(JSON.stringify(draft, null, 2));
+              draft?.messages?.push(data);
             })
           );
-
           try {
             await queryFulfilled;
           } catch {
             patchResult.undo();
-            // messageApiSlice.util.invalidateTags("Message");
+            messageApiSlice.util.invalidateTags("Message");
           }
         },
       }),
