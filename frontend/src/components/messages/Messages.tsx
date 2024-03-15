@@ -1,7 +1,6 @@
 import { useRef, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import Message from "./Message";
-import { useGetUserConversationQuery } from "../../redux/services/message/messageApiSlice";
 const Messages = () => {
   const { selectedConversation } = useSelector((state: any) => state.user);
   const { data: messages } = useGetUserConversationQuery(selectedConversation, {
