@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="h-[85vh] w-[400px] mx-auto mt-20 border-4 border-zinc-900  rounded-lg items-center justify-center  ">
+    <div className="h-[85vh] w-[400px] mx-auto mt-20 border-4 border-zinc-900  rounded-lg items-center justify-center   relative">
       <Outlet />
     </div>
   );
