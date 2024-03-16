@@ -19,6 +19,7 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
+console.log(process.env.REACT_URL);
 
 app.use(cors(corsOptions));
 app.use(express.json());
