@@ -1,8 +1,5 @@
 {
-    "build": {
-      "env": {
-        "DISABLE_TYPESCRIPT_WARNINGS": "true"
-      }
-    }
-  }
-  
+  "rewrites":  [
+    {"source": "/(.*)", "destination": "/"}
+  ]
+}
