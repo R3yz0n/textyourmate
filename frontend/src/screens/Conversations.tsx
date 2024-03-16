@@ -6,12 +6,11 @@ const Conversations = () => {
   const { data: conversations, error } = useGetAllConversationQuery(); // Pass the required argument
   console.log(error);
 
-  let xd = error?.data?.message || error?.message || "An error occurred. Please try again.";
   // console.log(conversations);
   // console.log(conversations);
   return (
     <div className="py-2 flex flex-col overflow-auto h-[65vh] px-2 ">
-      {xd}
+      {error && (error?.data?.message || error?.message || "An error occurred. Please try again.")}
       {/* <SearchInput /> */}
       {conversations?.map((conversation) => (
         <Conversation key={conversation._id} conversation={conversation} />
