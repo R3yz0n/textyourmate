@@ -11,6 +11,13 @@ export const usersApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: "User" }).
         body: data,
       }),
     }),
+    logout: builder.mutation({
+      query: () => ({
+        url: `${USERS_URL}/logout`,
+        method: "POST",
+        body: {},
+      }),
+    }),
 
     getAllUsers: builder.query({
       query: () => ({
@@ -58,4 +65,4 @@ export const usersApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: "User" }).
   }),
 });
 
-export const { useLoginMutation, useGetAllUsersQuery } = usersApiSlice;
+export const { useLoginMutation, useGetAllUsersQuery, useLogoutMutation } = usersApiSlice;
