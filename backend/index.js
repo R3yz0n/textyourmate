@@ -22,9 +22,9 @@ const corsOptions = {
 console.log(process.env.REACT_URL);
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/message", messageRoutes);
