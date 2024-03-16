@@ -3,7 +3,7 @@ import { BASE_URL } from "../../constants";
 
 const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: BASE_URL,
     credentials: "include",
   }),
   // tagTypes: ["Message"],
