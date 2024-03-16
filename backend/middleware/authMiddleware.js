@@ -6,11 +6,11 @@ import User from "../models/userModel.js";
 
 const tokenVerification = asyncHandler(async (req, res, next) => {
   let token = req.cookies.jwt;
+  console.log(token);
   if (token) {
     try {
       console.log("---------  ");
-      // const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const decoded = jwt.verify(token, "secret");
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       console.log(decoded);
       req.user = await User.findById(decoded.userId).select("-password");
       console.log(req.user);
