@@ -14,14 +14,14 @@ const sendMessage = asyncHandler(async (req, res) => {
 
   if (!conversaton) {
     // conversaton = await Conversation.create({ participants: [senderId, receiverId] });
-    throw new Error("Conversation not found");
+    throw new Error("Conversation not ");
   }
 
-  console.log(conversaton.lastMessage);
   const newMessage = new Message({ senderId, receiverId, message });
   if (newMessage) {
     conversaton.messages.push(newMessage._id);
     conversaton.lastMessage = message;
+    conversaton.totalMessageCount += 1;
   }
 
   await Promise.all([newMessage.save(), conversaton.save()]);
@@ -36,29 +36,31 @@ const sendMessage = asyncHandler(async (req, res) => {
 });
 
 const getMessages = asyncHandler(async (req, res) => {
-  let conversationId = req.params.id;
-  let a = await Conversation.findById(conversationId)
-    .select(["_id", "lastMessage"])
-    .populate(["messages", "participants"]);
-  // .populate("messages", "participants", "name email");
-  return res.json(a);
+  const conversationId = req.params.id;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
 
-  // const conversation = await Conversation.findById(conversationId).populate({
-  //   path: "participants",
-  //   select: "name email", // Select the fields you want to populate
-  // });
+  // Count total number of messages for the conversation
+  const totalMessagesCount = await Conversation.countDocuments();
+  console.log(totalMessagesCount);
 
-  // if (!conversation) {
-  //   return res.status(404).json({ message: "Conversation not found" });
-  // }
+  // Calculate total number of pages
+  const totalPages = Math.ceil(totalMessagesCount / limit);
 
-  // // Retrieve all messages associated with the conversation
-  // const messages = await Message.find({ conversationId: req.params.id }).populate(
-  //   "sender",
-  //   "name email"
-  // ); // Assuming each message has a sender field referencing the User model
+  const conversation = await Conversation.findById(conversationId)
+    .select(["_id", "lastMessage", "totalMessageCount"])
+    .populate({
+      path: "messages",
+      options: {
+        limit: limit,
+        skip: (page - 1) * limit,
+      },
 
-  // res.status(200).json({ conversation, messages });
+      sort: { createdAt: -1 },
+    })
+    .populate({ path: "participants", select: "name email" });
+
+  return res.json(conversation);
 });
 
 export { sendMessage, getMessages };
