@@ -20,6 +20,11 @@ const conversationSchema = new mongoose.Schema(
       ref: "Message",
       default: null,
     },
+    totalMessageCount: {
+      type: Number,
+      ref: "Message",
+      default: 0,
+    },
   },
   {
     timestamps: true,
