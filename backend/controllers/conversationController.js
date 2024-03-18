@@ -8,7 +8,6 @@ const getAllConversations = asyncHandler(async (req, res) => {
     .populate("participants")
     .select(["_id", "lastMessage"]);
 
-  console.log(users[0]);
   res.status(200).json(users);
 });
 
