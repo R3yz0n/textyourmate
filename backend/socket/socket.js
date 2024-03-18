@@ -23,7 +23,7 @@ const userSocketMap = {};
 io.on("connection", (socket) => {
   // console.log(socket);
   console.log("a user connected.");
-
+  console.log(socket.handshake.query.userId);
   const userId = socket.handshake.query.userId;
   if (userId) {
     userSocketMap[userId] = socket.id;
@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
   }
 
   socket.on("disconnect", () => {
-    console.log("a user disconnected.");
+    // console.log("a user disconnected.");
     delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
