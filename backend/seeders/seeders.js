@@ -4,6 +4,7 @@ import users from "../data/users.js";
 import User from "../models/userModel.js";
 import connectToDB from "../config/db.js";
 import Conversation from "../models/conversationModel.js";
+import Message from "../models/messageModel.js";
 
 dotenv.config(process.env.MONGO_URI);
 connectToDB();
@@ -25,7 +26,9 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    await User.deleteMany();
+    // await User.deleteMany();
+    // await Conversation.deleteMany();
+    await Message.deleteMany();
 
     console.log("Data Deleted!".red.inverse);
     process.exit(0);
