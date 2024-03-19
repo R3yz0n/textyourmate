@@ -11,57 +11,52 @@ export const messageApiSlice = apiSlice
           `${MESSAGE_URL}/${conversationId}?page=${page}&limit=${limit}`,
 
         providesTags: ["Message"],
-        // transformResponse: (response) => {
-        //   return response;
-        // },
 
         serializeQueryArgs: ({ queryArgs }) => {
           const newQueryArgs = { ...queryArgs };
+          // console.log(newQueryArgs);
           if (newQueryArgs.page) {
             delete newQueryArgs.page;
           }
           return newQueryArgs;
         },
         merge: (oldCache, newCache) => {
-          // console.log(JSON.stringify(oldCache, null, 2));
-          // console.log(newCache);
-          const { messages, ...rest } = oldCache;
-          console.log(JSON.stringify(rest, null, 2));
+          const { messages: newMessages, ...restNewCache } = newCache;
+          const { messages: oldMessages, ...restOldCache } = oldCache;
+          console.log(restNewCache);
           return {
-            ...newCache.participants,
-            // ...rest,
-            messages: [...newCache.messages, ...oldCache.messages],
-            // ...oldCache,
+            // ...restNewCache,
+            messages: [...newMessages, ...oldMessages], // Merge old and new messages
           };
         },
 
-        async onCacheEntryAdded(
-          arg,
-          { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState }
-        ) {
-          const { auth } = getState();
-          const socket = io(BASE_URL, {
-            query: {
-              userId: auth?.userInfo?._id,
-            },
-          });
+        // async onCacheEntryAdded(
+        //   arg,
+        //   { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState }
+        // ) {
+        //   const { auth } = getState();
+        //   const socket = io(BASE_URL, {
+        //     query: {
+        //       userId: auth?.userInfo?._id,
+        //     },
+        //   });
 
-          socket.on("newMessage", (message) => {
-            console.log(message);
-            updateCachedData((draft) => {
-              draft?.messages?.push(message);
-            });
-          });
+        //   socket.on("newMessage", (message) => {
+        //     console.log(message);
+        //     updateCachedData((draft) => {
+        //       draft?.messages?.push(message);
+        //     });
+        //   });
 
-          try {
-            await cacheDataLoaded;
-          } catch (err) {
-            console.log(err);
-          }
+        //   try {
+        //     await cacheDataLoaded;
+        //   } catch (err) {
+        //     console.log(err);
+        //   }
 
-          await cacheEntryRemoved;
-          socket.close();
-        },
+        //   await cacheEntryRemoved;
+        //   socket.close();
+        // },
       }),
 
       sendMessage: builder.mutation({
