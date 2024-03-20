@@ -4,10 +4,7 @@ import { useGetAllConversationQuery } from "../redux/services/conversation/conve
 
 const Conversations = () => {
   const { data: conversations, error } = useGetAllConversationQuery(); // Pass the required argument
-  console.log(error);
 
-  // console.log(conversations);
-  // console.log(conversations);
   return (
     <div className="py-2 flex flex-col overflow-auto h-[65vh] px-2 ">
       {error && (error?.data?.message || error?.message || "An error occurred. Please try again.")}
