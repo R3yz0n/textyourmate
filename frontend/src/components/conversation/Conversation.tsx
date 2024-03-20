@@ -9,11 +9,15 @@ interface ConversationProps {
 
 const Conversation: React.FC<ConversationProps> = ({ conversation, id }) => {
   const { selectedConversation } = useSelector((state: any) => state.user);
-
+  const {
+    userInfo: { _id: userId },
+  } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
 
   const isSelected = selectedConversation === id;
-
+  const friendDetails = conversation?.participants.find(
+    (participant: any) => participant._id !== userId
+  );
   return (
     <Link to={`/conversation/${conversation?._id}`}>
       <div
@@ -34,7 +38,7 @@ const Conversation: React.FC<ConversationProps> = ({ conversation, id }) => {
 
         <div className="flex flex-col flex-1 my-2">
           <div>
-            <p>{conversation && conversation?.participants[1]?.name}</p>
+            <p>{conversation && friendDetails?.name}</p>
             <span className="text-xs text-gray-400">{conversation?.lastMessage}</span>
           </div>
         </div>
