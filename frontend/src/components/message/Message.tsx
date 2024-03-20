@@ -14,7 +14,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
 
   return (
     <section className={`chat ${fromMe ? "chat-end" : "chat-start"}`}>
-      <div className="chat chat-start w-auto">
+      <div className="chat chat-start ">
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
             <img
@@ -23,7 +23,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
             />
           </div>
         </div>
-        <div className={`chat-bubble ${!fromMe && "bg-blue-500 text-white"}`}>
+        <div className={`chat-bubble w-full  rounded-sm ${!fromMe && "bg-blue-500 text-white"}`}>
           {message.message}
         </div>
         <p className="chat-footer opacity-50 text-xs flex gap-1 items-center">
