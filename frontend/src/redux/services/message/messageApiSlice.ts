@@ -16,7 +16,6 @@ export const messageApiSlice = apiSlice
 
         serializeQueryArgs: ({ queryArgs }) => {
           const newQueryArgs = { ...queryArgs };
-          // console.log(newQueryArgs);
           if (newQueryArgs.page) {
             delete newQueryArgs.page;
           }
@@ -38,6 +37,7 @@ export const messageApiSlice = apiSlice
           { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState }
         ) {
           const { auth } = getState();
+
           const socket = io(BASE_URL, {
             query: {
               userId: auth?.userInfo?._id,
@@ -45,9 +45,10 @@ export const messageApiSlice = apiSlice
           });
 
           socket.on("newMessage", (message) => {
-            console.log(message);
+            // console.log(message);
             updateCachedData((draft) => {
-              draft?.messages?.push(message);
+              console.log(JSON.stringify(draft));
+              draft?.messages?.unshift(message);
             });
           });
 
@@ -85,7 +86,6 @@ export const messageApiSlice = apiSlice
               "getAllMessages",
               { conversationId, page, limit },
               (draft) => {
-                console.log(JSON.stringify(draft, null, 2));
                 draft?.messages?.unshift(data);
               }
             )
