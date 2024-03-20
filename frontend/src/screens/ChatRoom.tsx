@@ -2,8 +2,9 @@ import { Link, useParams } from "react-router-dom";
 import { useGetAllMessagesQuery } from "../redux/services/message/messageApiSlice";
 import MessageInput from "../components/message/MessageInput";
 import Message from "../components/message/Message";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { skip } from "node:test";
 
 const ChatRoom = () => {
   const lastMessageRef = useRef<HTMLDivElement>(null);
@@ -15,21 +16,13 @@ const ChatRoom = () => {
     { refetchOnMountOrArgChange: true }
   );
   const messages = data?.messages;
-  // console.log(data);
   const receiver = data?.participants && data?.participants[1];
-  // console.log(data);
-  const handleNextPage = () => {
-    console.log(1);
-    setPage((prevPage) => prevPage + 1);
-  };
+  console.log(data?.totalMessageCount);
 
-  useEffect(() => {}, []);
-  useLayoutEffect(() => {
-    // Scroll to the last message when messages change
-    if (lastMessageRef.current) {
-      // lastMessageRef.current.scrollIntoView();
-    }
-  }, [messages]);
+  const handleNextPage = useCallback(() => {
+    setPage((prevPage) => prevPage + 1);
+  }, [setPage]);
+  console.log(data?.messages);
   return (
     <main className="w-full flex flex-col h-full">
       <div className="bg-slate-500 px-4 py-2 mb-2">
@@ -39,35 +32,29 @@ const ChatRoom = () => {
 
         <span className="label-text ">{receiver?.name}</span>
       </div>
-      <div>h</div>
-
-      <div
-        className="px-4 pt-10 flex flex-col-reverse overflow-y-auto relative  h-[80%] b"
+      <section
+        className="px-4 pt-10 flex flex-col-reverse overflow-y-auto relative  b h-[70%] "
         id="scrollableDiv"
       >
         <InfiniteScroll
-          className=" overflow-scroll"
-          next={() => {
-            console.log(1);
-            handleNextPage();
-          }}
+          className=" overflow-scroll flex flex-col-reverse"
+          next={() => handleNextPage()}
           inverse={true} //
-          hasMore={true}
+          hasMore={data?.totalMessageCount > messages?.length}
+          loader={<h4>Loading...</h4>}
           // loader={<h4>Loading...</h4>}
           scrollableTarget="scrollableDiv"
-          dataLength={data?.totalMessageCount || 0}
-          initialScrollY={100}
-          endMessage={<b className="b">Yay! You have seen it all</b>}
+          dataLength={data?.messages.length || 100}
+          // initialScrollY={100}
+          scrollThreshold={0.8}
+          // endMessage={<b className="b">Yay! You have seen it all</b>}
         >
           {messages?.length > 0 &&
             messages?.map((message: any, index: number) => (
-              <div key={message._id} ref={index === messages.length - 1 ? lastMessageRef : null}>
-                {index}
-                <Message message={message} />
-              </div>
+              <Message key={index} message={message} />
             ))}
         </InfiniteScroll>
-      </div>
+      </section>
       <MessageInput receiverId={receiver?._id} conversationId={conversationId} />
     </main>
   );
