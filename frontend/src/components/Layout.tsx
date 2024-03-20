@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import SearchInput from "./SearchInput";
 import Sidebar from "./Sidebar";
 import ProtectedRoute from "../helpers/ProtectedRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { getOnlineUsers } from "../redux/services/notification/notificationSlice";
 
 const Layout = () => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+  useLayoutEffect(() => {
+    if (userInfo?._id) dispatch(getOnlineUsers(userInfo?._id));
+  }, [dispatch]);
 
   if (pathname.includes("conversation")) {
     return (
