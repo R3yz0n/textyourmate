@@ -26,8 +26,8 @@ const importData = async () => {
 
 const destroyData = async () => {
   try {
-    // await User.deleteMany();
-    // await Conversation.deleteMany();
+    await User.deleteMany();
+    await Conversation.deleteMany();
     await Message.deleteMany();
 
     console.log("Data Deleted!".red.inverse);
