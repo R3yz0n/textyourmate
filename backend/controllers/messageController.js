@@ -22,7 +22,9 @@ const sendMessage = asyncHandler(async (req, res) => {
     conversaton.messages.push(newMessage._id);
     conversaton.lastMessage = message;
     conversaton.totalMessageCount += 1;
+    newMessage.conversationId = conversationId;
   }
+  console.log(newMessage);
 
   await Promise.all([newMessage.save(), conversaton.save()]);
   const receiverSocketId = getReceiverSocketId(receiverId);
@@ -30,7 +32,8 @@ const sendMessage = asyncHandler(async (req, res) => {
     console.log("socket id");
     console.log(receiverSocketId);
 
-    io.to(receiverSocketId).emit("newMessage", newMessage);
+    const updatedNewMessage = { ...newMessage._doc, conversationId: conversationId };
+    io.to(receiverSocketId).emit("newMessage", updatedNewMessage);
   }
   res.status(201).json(newMessage);
 });
@@ -42,10 +45,6 @@ const getMessages = asyncHandler(async (req, res) => {
 
   // Count total number of messages for the conversation
   const totalMessagesCount = await Conversation.countDocuments();
-  console.log(totalMessagesCount);
-
-  // Calculate total number of pages
-  const totalPages = Math.ceil(totalMessagesCount / limit);
 
   const conversation = await Conversation.findById(conversationId)
     .select(["_id", "lastMessage", "totalMessageCount"])
