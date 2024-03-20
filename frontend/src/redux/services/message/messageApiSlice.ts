@@ -7,10 +7,12 @@ export const messageApiSlice = apiSlice
   .injectEndpoints({
     endpoints: (builder) => ({
       getAllMessages: builder.query({
-        query: ({ conversationId, page, limit }) =>
-          `${MESSAGE_URL}/${conversationId}?page=${page}&limit=${limit}`,
+        query: ({ conversationId }) => `${MESSAGE_URL}/${conversationId}`,
 
         providesTags: ["Message"],
+        transformResponse: (response) => {
+          return response;
+        },
 
         serializeQueryArgs: ({ queryArgs }) => {
           const newQueryArgs = { ...queryArgs };
@@ -18,45 +20,46 @@ export const messageApiSlice = apiSlice
           if (newQueryArgs.page) {
             delete newQueryArgs.page;
           }
+
           return newQueryArgs;
         },
         merge: (oldCache, newCache) => {
           const { messages: newMessages, ...restNewCache } = newCache;
           const { messages: oldMessages, ...restOldCache } = oldCache;
-          console.log(restNewCache);
           return {
-            // ...restNewCache,
-            messages: [...newMessages, ...oldMessages], // Merge old and new messages
+            ...restNewCache,
+
+            messages: [...oldMessages, ...newMessages], // Merge old and new messages
           };
         },
 
-        // async onCacheEntryAdded(
-        //   arg,
-        //   { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState }
-        // ) {
-        //   const { auth } = getState();
-        //   const socket = io(BASE_URL, {
-        //     query: {
-        //       userId: auth?.userInfo?._id,
-        //     },
-        //   });
+        async onCacheEntryAdded(
+          arg,
+          { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState }
+        ) {
+          const { auth } = getState();
+          const socket = io(BASE_URL, {
+            query: {
+              userId: auth?.userInfo?._id,
+            },
+          });
 
-        //   socket.on("newMessage", (message) => {
-        //     console.log(message);
-        //     updateCachedData((draft) => {
-        //       draft?.messages?.push(message);
-        //     });
-        //   });
+          socket.on("newMessage", (message) => {
+            console.log(message);
+            updateCachedData((draft) => {
+              draft?.messages?.push(message);
+            });
+          });
 
-        //   try {
-        //     await cacheDataLoaded;
-        //   } catch (err) {
-        //     console.log(err);
-        //   }
+          try {
+            await cacheDataLoaded;
+          } catch (err) {
+            console.log(err);
+          }
 
-        //   await cacheEntryRemoved;
-        //   socket.close();
-        // },
+          await cacheEntryRemoved;
+          socket.close();
+        },
       }),
 
       sendMessage: builder.mutation({
@@ -70,13 +73,22 @@ export const messageApiSlice = apiSlice
 
         async onQueryStarted(task, { dispatch, queryFulfilled }) {
           // console.log(task);
+          let conversationId = task.conversationId;
+          console.log(conversationId);
           const { data } = await queryFulfilled;
-          console.log(data);
+          // console.log(task);
+          let page = undefined,
+            limit = 10;
+          // console.log(data);
           const patchResult = dispatch(
-            messageApiSlice.util.updateQueryData("getAllMessages", task.conversationId, (draft) => {
-              // console.log(JSON.stringify(draft, null, 2));
-              draft?.messages?.push(data);
-            })
+            messageApiSlice.util.updateQueryData(
+              "getAllMessages",
+              { conversationId, page, limit },
+              (draft) => {
+                console.log(JSON.stringify(draft, null, 2));
+                draft?.messages?.unshift(data);
+              }
+            )
           );
           try {
             await queryFulfilled;
