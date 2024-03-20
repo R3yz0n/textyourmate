@@ -37,20 +37,17 @@ export const usersApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: "User" }).
           },
         });
 
-        socket.on("getOnlineUsers", (onlineUserIds) => {
-          // Map the received data if needed
-          // console.log(onlineUserIds);
-          // const updatedUsers =
-          //   cacheDataLoaded?.length >= 0 &&
-          //   cacheDataLoaded?.map((user) => ({
-          //     ...user,
-          //     onlineUser: onlineUserIds.includes(user._id),
-          //   }));
-          // // console.log("Updated Users with Online Status:", updatedUsers);
-          // console.log(updatedUsers);
-          // // Update the cached data with modified online users
-          // updateCachedData(updatedUsers);
-        });
+        // socket.on("getOnlineUsers", (onlineUserIds) => {
+        //   // console.log(onlineUserIds);
+        //   updateCachedData((draft) => {
+        //     console.log(JSON.stringify(draft, null, 2));
+        //     draft?.map((user) => {
+        //       // user.isOnline = onlineUserIds.includes(user.id);
+        //       // console.log(JSON.stringify(user, null, 2));
+        //       user.isOnline = true;
+        //     });
+        //   });
+        // });
 
         try {
           await cacheDataLoaded;
