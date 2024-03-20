@@ -43,9 +43,10 @@ export const messageApiSlice = apiSlice
               userId: auth?.userInfo?._id,
             },
           });
+          console.log(socket);
 
           socket.on("newMessage", (message) => {
-            // console.log(message);
+            console.log(message);
             updateCachedData((draft) => {
               console.log(JSON.stringify(draft));
               draft?.messages?.unshift(message);
@@ -75,12 +76,9 @@ export const messageApiSlice = apiSlice
         async onQueryStarted(task, { dispatch, queryFulfilled }) {
           // console.log(task);
           let conversationId = task.conversationId;
-          console.log(conversationId);
           const { data } = await queryFulfilled;
-          // console.log(task);
           let page = undefined,
             limit = 10;
-          // console.log(data);
           const patchResult = dispatch(
             messageApiSlice.util.updateQueryData(
               "getAllMessages",
@@ -94,7 +92,7 @@ export const messageApiSlice = apiSlice
             await queryFulfilled;
           } catch {
             patchResult.undo();
-            messageApiSlice.util.invalidateTags("Message");
+            // messageApiSlice.util.invalidateTags("Message");
           }
         },
       }),
