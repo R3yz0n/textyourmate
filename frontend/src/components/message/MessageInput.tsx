@@ -15,6 +15,7 @@ const MessageInput = ({ receiverId, conversationId }) => {
       let message = {
         message: inputMsg,
       };
+      console.log(receiverId);
 
       const data = await sendMessage({ receiverId, message, conversationId }).unwrap();
     } catch (error: any) {
