@@ -23,7 +23,8 @@ const ChatRoom = () => {
   // const receiver = data?.participants && data?.participants[1];
   const receiver = data?.participants.find((participant: any) => participant._id !== userId);
   // console.log(receiverDetails);
-  console.log(receiver);
+  // console.log(receiver);
+  console.log(messages);
 
   const handleNextPage = useCallback(() => {
     setPage((prevPage) => prevPage + 1);
@@ -38,7 +39,7 @@ const ChatRoom = () => {
         <span className="label-text ">{receiver?.name}</span>
       </div>
       <section
-        className="px-4 pt-10 flex flex-col-reverse overflow-y-auto relative  b h-[70%] "
+        className="px-4 pt-10 flex flex-col-reverse overflow-y-auto relative   h-[80%] "
         id="scrollableDiv"
       >
         <InfiniteScroll
