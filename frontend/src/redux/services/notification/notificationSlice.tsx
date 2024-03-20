@@ -18,13 +18,12 @@ const notificationSlice = createSlice({
           userId: payload,
         },
       });
-      console.log(state.onlineUsers);
-      socket?.on("getOnlineUsers", (onlineUserIds) => {
-        console.log(onlineUserIds);
-        // state.onlineUsers = onlineUserIds;
-        // if (onlineUserIds) state.onlineUsers = [...onlineUserIds];
-      });
-      state.onlineUsers.push("1");
+      //   console.log(state.onlineUsers);
+      //   socket?.on("getOnlineUsers", (onlineUserIds) => {
+      //     console.log(onlineUserIds);
+      //     // state.onlineUsers = onlineUserIds;
+      //     // if (onlineUserIds) state.onlineUsers = [...onlineUserIds];
+      //   });
     },
   },
 });
