@@ -5,10 +5,14 @@ import Message from "../components/message/Message";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { skip } from "node:test";
+import { useSelector } from "react-redux";
 
 const ChatRoom = () => {
   const lastMessageRef = useRef<HTMLDivElement>(null);
   const { id: conversationId } = useParams();
+  const {
+    userInfo: { _id: userId },
+  } = useSelector((state: any) => state.auth);
   const [page, setPage] = useState(1);
   let limit = 10;
   const { data } = useGetAllMessagesQuery(
@@ -16,13 +20,14 @@ const ChatRoom = () => {
     { refetchOnMountOrArgChange: true }
   );
   const messages = data?.messages;
-  const receiver = data?.participants && data?.participants[1];
-  console.log(data?.totalMessageCount);
+  // const receiver = data?.participants && data?.participants[1];
+  const receiver = data?.participants.find((participant: any) => participant._id !== userId);
+  // console.log(receiverDetails);
+  console.log(receiver);
 
   const handleNextPage = useCallback(() => {
     setPage((prevPage) => prevPage + 1);
   }, [setPage]);
-  console.log(data?.messages);
   return (
     <main className="w-full flex flex-col h-full">
       <div className="bg-slate-500 px-4 py-2 mb-2">
