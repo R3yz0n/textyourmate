@@ -42,7 +42,7 @@ const MessageInput = ({ receiverId, conversationId }) => {
 
       const data = await sendMessage({ receiverId, message, conversationId }).unwrap();
 
-      // playAudio();
+      playAudio();
     } catch (error) {
       console.log(error);
     }
