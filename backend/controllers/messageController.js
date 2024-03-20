@@ -54,9 +54,8 @@ const getMessages = asyncHandler(async (req, res) => {
       options: {
         limit: limit,
         skip: (page - 1) * limit,
+        sort: { createdAt: -1 },
       },
-
-      sort: { createdAt: -1 },
     })
     .populate({ path: "participants", select: "name email" });
 
