@@ -8,6 +8,7 @@ export const conversationApiSlice = apiSlice
     endpoints: (builder) => ({
       getConversationById: builder.query({
         query: (conversationId) => `${CONVERSATION_URL}/${conversationId}`,
+        keepUnusedDataFor: 5,
         //
         providesTags: ["Conversation"],
         async onCacheEntryAdded(
@@ -22,7 +23,7 @@ export const conversationApiSlice = apiSlice
               userId: auth?.userInfo?._id,
             },
           });
-          console.log("here");
+
           socket.on("newMessage", (message) => {
             console.log(message);
             updateCachedData((draft) => {
