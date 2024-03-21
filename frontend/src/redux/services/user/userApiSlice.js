@@ -37,17 +37,23 @@ export const usersApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: "User" }).
           },
         });
 
-        // socket.on("getOnlineUsers", (onlineUserIds) => {
-        //   // console.log(onlineUserIds);
-        //   updateCachedData((draft) => {
-        //     console.log(JSON.stringify(draft, null, 2));
-        //     draft?.map((user) => {
-        //       // user.isOnline = onlineUserIds.includes(user.id);
-        //       // console.log(JSON.stringify(user, null, 2));
-        //       user.isOnline = true;
-        //     });
-        //   });
-        // });
+        socket.on("getOnlineUsers", (onlineUserIds) => {
+          updateCachedData((draft) => {
+            draft?.map((user) => {
+              // user.isOnline = onlineUserIds.includes(user.id);
+              // user.isOnline = true;
+              onlineUserIds?.find((id) => {
+                if (id === user._id) {
+                  user.isOnline = true;
+                  console.log(user?.name);
+                } else {
+                  user.isOnline = false;
+                }
+              });
+              // console.log(JSON.stringify(user, null, 2));
+            });
+          });
+        });
 
         try {
           await cacheDataLoaded;
