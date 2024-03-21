@@ -25,7 +25,7 @@ const Friend = ({ user }) => {
       // onClick={() => dispatch(selectConversation(id))}
       onClick={() => getConversation()}
     >
-      <div className="avatar online">
+      <div className={`avatar ${user?.isOnline === true && "online"}`}>
         <div className="w-12 rounded-full">
           <img
             className="max-w-full max-h-full overflow-hidden"
